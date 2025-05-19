@@ -23,6 +23,12 @@ func (node BNode) getPtr(idx uint16) uint64 {
 	return binary.LittleEndian.Uint64(node[pos:])
 }
 
+func (node BNode) setPtr(idx uint16, val uint64) {
+	assert(idx < node.nkeys())
+	pos := 4 + 8*idx
+	binary.LittleEndian.PutUint64(node[pos:], val)
+}
+
 func assert(cond bool) {
 	if (!cond) {
 		panic("assertion failure")
